@@ -1,0 +1,57 @@
+name: 'PR Risk Scorer'
+description: 'Scores pull requests by structural risk (diff size, complexity, coverage, dead code, migrations)'
+author: 'FasterApiWeb'
+
+branding:
+  icon: 'alert-triangle'
+  color: 'orange'
+
+inputs:
+  github_token:
+    description: 'GitHub token for posting PR comments and reading PR data'
+    required: true
+  threshold:
+    description: 'Risk score threshold (0-100). Scores above this are considered high risk.'
+    required: false
+    default: '70'
+  fail_on_high:
+    description: 'Exit with a non-zero status code when the risk score exceeds the threshold'
+    required: false
+    default: 'true'
+
+outputs:
+  risk_score:
+    description: 'The computed risk score (0-100)'
+    value: ${{ steps.score.outputs.risk_score }}
+  risk_level:
+    description: 'Risk level: LOW, MEDIUM, or HIGH'
+    value: ${{ steps.score.outputs.risk_level }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        pip install hatch
+        cd "${{ github.action_path }}"
+        hatch env create
+
+    - name: Run PR Risk Scorer
+      id: score
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+        PR_THRESHOLD: ${{ inputs.threshold }}
+        FAIL_ON_HIGH: ${{ inputs.fail_on_high }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+      run: |
+        cd "${{ github.action_path }}"
+        hatch run python src/main.py
