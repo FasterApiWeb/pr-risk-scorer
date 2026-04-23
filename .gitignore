@@ -2,7 +2,6 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .eggs/
-dist/
 build/
 .hatch/
 .venv/
@@ -12,3 +11,4 @@ coverage.xml
 htmlcov/
 .mypy_cache/
 .pytest_cache/
+node_modules/
