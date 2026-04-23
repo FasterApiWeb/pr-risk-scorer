@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
+
 WEIGHTS: dict[str, float] = {
     "diff_size": 0.20,
     "complexity": 0.30,
@@ -10,7 +12,7 @@ WEIGHTS: dict[str, float] = {
 
 
 class Scorer:
-    def score(self, analyzer_scores: dict[str, float]) -> float:
+    def score(self, analyzer_scores: Mapping[str, float]) -> float:
         total = sum(
             analyzer_scores.get(key, 0.0) * weight
             for key, weight in WEIGHTS.items()
