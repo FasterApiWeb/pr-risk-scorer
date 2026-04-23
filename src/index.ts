@@ -1,4 +1,5 @@
 import * as core from '@actions/core';
+import * as github from '@actions/github';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -21,6 +22,8 @@ interface Config {
     medium?: number;
     high?: number;
   };
+  block_merge?: number;
+  required_approvers?: string[];
 }
 
 const DEFAULT_WEIGHTS = {
@@ -90,17 +93,69 @@ async function run(): Promise<void> {
     }, 0),
   );
 
-  const label = riskLabel(totalScore, thresholds);
+  const band = riskLabel(totalScore, thresholds);
 
   core.info('');
-  core.info(`Risk score: ${totalScore} (${label})`);
+  core.info(`Risk score: ${totalScore} (${band})`);
   for (const [name, signal] of Object.entries(signals)) {
     const weight = weights[name as keyof typeof weights] ?? 0;
     core.info(`  ${name}: ${signal.score} (weight ${weight}) — ${signal.detail}`);
   }
 
   core.setOutput('risk-score', String(totalScore));
-  core.setOutput('risk-label', label);
+  core.setOutput('risk-label', band);
+
+  const octokit = github.getOctokit(token);
+  const { owner, repo } = github.context.repo;
+  const sha =
+    (github.context.payload.pull_request?.head?.sha as string | undefined) ??
+    github.context.sha;
+
+  const state: 'failure' | 'success' =
+    config.block_merge !== undefined && totalScore >= config.block_merge
+      ? 'failure'
+      : 'success';
+
+  await octokit.rest.repos.createCommitStatus({
+    owner,
+    repo,
+    sha,
+    state,
+    context: 'pr-risk-scorer',
+    description: `Risk: ${totalScore}/100 — ${band}`,
+  });
+
+  if ((band === 'MEDIUM' || band === 'HIGH') && config.required_approvers?.length) {
+    const approvers = config.required_approvers
+      .map(a => (a.startsWith('@') ? a : `@${a}`))
+      .join(' ');
+    const codeownersContent = `* ${approvers}\n`;
+    const codeownersPath = '.github/CODEOWNERS';
+    const branch = github.context.payload.pull_request?.head?.ref as string | undefined;
+
+    let existingFileSha: string | undefined;
+    try {
+      const { data } = await octokit.rest.repos.getContent({
+        owner,
+        repo,
+        path: codeownersPath,
+        ...(branch !== undefined && { ref: branch }),
+      });
+      if (!Array.isArray(data)) existingFileSha = data.sha;
+    } catch {
+      // File does not exist yet; will be created
+    }
+
+    await octokit.rest.repos.createOrUpdateFileContents({
+      owner,
+      repo,
+      path: codeownersPath,
+      message: `chore: set required approvers for ${band.toLowerCase()} risk PR`,
+      content: Buffer.from(codeownersContent).toString('base64'),
+      ...(existingFileSha !== undefined && { sha: existingFileSha }),
+      ...(branch !== undefined && { branch }),
+    });
+  }
 }
 
 run().catch(err => {
