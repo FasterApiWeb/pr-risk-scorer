@@ -1,8 +1,10 @@
+import { spawnSync } from 'child_process';
 import { filesChanged } from './signals/filesChanged';
 import { complexityDelta } from './signals/complexityDelta';
 import { coverageRatio } from './signals/coverageRatio';
 import { migrationFiles } from './signals/migrationFiles';
 import { deadCode } from './signals/deadCode';
+import { secretLeak } from './signals/secretLeak';
 import type { Signal } from './signals/types';
 
 export interface WeightConfig {
@@ -30,7 +32,7 @@ export interface SignalResult {
   detail: string;
 }
 
-export type RiskBand = 'LOW' | 'MEDIUM' | 'HIGH';
+export type RiskBand = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
 
 export interface ScoreResult {
   total: number;
@@ -54,6 +56,19 @@ function toBand(total: number, thresholds: { medium: number; high: number }): Ri
   return 'HIGH';
 }
 
+function fetchGitDiff(workspaceDir: string): string {
+  try {
+    const result = spawnSync('git', ['diff', 'HEAD~1'], {
+      cwd: workspaceDir,
+      encoding: 'utf8',
+      maxBuffer: 10 * 1024 * 1024,
+    });
+    return result.stdout ?? '';
+  } catch {
+    return '';
+  }
+}
+
 export async function score(
   token: string,
   workspaceDir = '.',
@@ -62,12 +77,15 @@ export async function score(
   const weights = { ...DEFAULT_WEIGHTS, ...config.weights };
   const thresholds = { ...DEFAULT_THRESHOLDS, ...config.thresholds };
 
-  const [fc, cd, cr, mf, dc] = await Promise.allSettled([
+  const diff = fetchGitDiff(workspaceDir);
+
+  const [fc, cd, cr, mf, dc, sl] = await Promise.allSettled([
     filesChanged(token),
     complexityDelta(token),
     coverageRatio(workspaceDir),
     migrationFiles(workspaceDir),
     deadCode(),
+    secretLeak(diff),
   ]);
 
   function resolve(result: PromiseSettledResult<Signal>, name: string): Signal {
@@ -92,9 +110,18 @@ export async function score(
 
   const weightSum = signals.reduce((s, r) => s + r.weight, 0);
   const weightedSum = signals.reduce((s, r) => s + r.score * r.weight, 0);
-  const total = weightSum > 0
+  const baseTotal = weightSum > 0
     ? Math.min(100, Math.max(0, Math.round(weightedSum / weightSum)))
     : 0;
 
-  return { total, band: toBand(total, thresholds), signals };
+  const slResult = sl.status === 'fulfilled'
+    ? sl.value
+    : { score: 0, triggered: false, detail: `error: ${String(sl.reason)}` };
+
+  signals.push({ name: 'secretLeak', score: slResult.score, weight: 0, detail: slResult.detail });
+
+  const total = Math.min(100, baseTotal + slResult.score);
+  const band: RiskBand = slResult.triggered ? 'CRITICAL' : toBand(total, thresholds);
+
+  return { total, band, signals };
 }

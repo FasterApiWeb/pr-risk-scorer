@@ -4,18 +4,22 @@ import { complexityDelta } from '../signals/complexityDelta';
 import { coverageRatio } from '../signals/coverageRatio';
 import { migrationFiles } from '../signals/migrationFiles';
 import { deadCode } from '../signals/deadCode';
+import { secretLeak } from '../signals/secretLeak';
 
 jest.mock('../signals/filesChanged');
 jest.mock('../signals/complexityDelta');
 jest.mock('../signals/coverageRatio');
 jest.mock('../signals/migrationFiles');
 jest.mock('../signals/deadCode');
+jest.mock('../signals/secretLeak');
+jest.mock('child_process', () => ({ spawnSync: jest.fn(() => ({ stdout: '', status: 0 })) }));
 
 const mockFilesChanged = filesChanged as jest.MockedFunction<typeof filesChanged>;
 const mockComplexityDelta = complexityDelta as jest.MockedFunction<typeof complexityDelta>;
 const mockCoverageRatio = coverageRatio as jest.MockedFunction<typeof coverageRatio>;
 const mockMigrationFiles = migrationFiles as jest.MockedFunction<typeof migrationFiles>;
 const mockDeadCode = deadCode as jest.MockedFunction<typeof deadCode>;
+const mockSecretLeak = secretLeak as jest.MockedFunction<typeof secretLeak>;
 
 describe('score()', () => {
   beforeEach(() => {
@@ -24,6 +28,7 @@ describe('score()', () => {
     mockCoverageRatio.mockResolvedValue({ score: 0, detail: '100% line coverage' });
     mockMigrationFiles.mockResolvedValue({ score: 0, detail: 'No migration files detected' });
     mockDeadCode.mockResolvedValue({ score: 0, detail: '0 unused exports' });
+    mockSecretLeak.mockResolvedValue({ score: 0, triggered: false, detail: 'clean' });
   });
 
   afterEach(() => {
@@ -39,15 +44,16 @@ describe('score()', () => {
       expect(result.band).toBe('LOW');
     });
 
-    it('returns exactly 5 named signals', async () => {
+    it('returns exactly 6 named signals including secretLeak', async () => {
       const result = await score('token');
-      expect(result.signals).toHaveLength(5);
+      expect(result.signals).toHaveLength(6);
       const names = result.signals.map(s => s.name);
       expect(names).toContain('filesChanged');
       expect(names).toContain('complexityDelta');
       expect(names).toContain('coverageRatio');
       expect(names).toContain('migrationFiles');
       expect(names).toContain('deadCode');
+      expect(names).toContain('secretLeak');
     });
 
     it('each signal carries its configured weight', async () => {
@@ -202,6 +208,29 @@ describe('score()', () => {
 
       const result = await score('token', '.', { thresholds: { medium: 20, high: 40 } });
       expect(result.band).toBe('HIGH');
+    });
+
+    it('escalates to CRITICAL when secretLeak is triggered regardless of total', async () => {
+      mockSecretLeak.mockResolvedValue({ score: 15, triggered: true, detail: '2 secrets found' });
+
+      const result = await score('token');
+      expect(result.band).toBe('CRITICAL');
+    });
+
+    it('does not escalate to CRITICAL when secretLeak is not triggered', async () => {
+      mockSecretLeak.mockResolvedValue({ score: 0, triggered: false, detail: 'clean' });
+
+      const result = await score('token');
+      expect(result.band).not.toBe('CRITICAL');
+    });
+
+    it('adds secretLeak score as flat bonus to total', async () => {
+      // All base signals at 0 → baseTotal = 0; secretLeak adds 15 → total = 15
+      mockSecretLeak.mockResolvedValue({ score: 15, triggered: true, detail: '1 secret found' });
+
+      const result = await score('token');
+      expect(result.total).toBe(15);
+      expect(result.band).toBe('CRITICAL');
     });
   });
 
