@@ -1,6 +1,11 @@
 # pr-risk-scorer
 
 [![Self Test](https://github.com/FasterApiWeb/pr-risk-scorer/actions/workflows/self_test.yml/badge.svg)](https://github.com/FasterApiWeb/pr-risk-scorer/actions/workflows/self_test.yml)
+[![Deploy Docs](https://github.com/FasterApiWeb/pr-risk-scorer/actions/workflows/docs.yml/badge.svg)](https://github.com/FasterApiWeb/pr-risk-scorer/actions/workflows/docs.yml)
+[![Docs](https://img.shields.io/badge/docs-mkdocs--material-blue?logo=readthedocs)](https://fasterapiweb.github.io/pr-risk-scorer/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub release](https://img.shields.io/github/v/release/FasterApiWeb/pr-risk-scorer?logo=github)](https://github.com/FasterApiWeb/pr-risk-scorer/releases)
+[![Node.js 20](https://img.shields.io/badge/node-20-brightgreen?logo=node.js)](https://nodejs.org)
 
 A GitHub Action that scores pull requests by **structural risk** across five dimensions and posts the result as a PR comment.
 
