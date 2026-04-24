@@ -52,7 +52,16 @@ Both `tests/test_scorer.py` and `tests/test_analyzers.py` use `unittest.mock.pat
 
 | Command | File | What it does |
 |---------|------|--------------|
-| `/score-pr` | `.claude/commands/score-pr.md` | Runs a live PR risk analysis on the current working tree and prints a Markdown score table |
+| `/score-pr` | `.claude/commands/score-pr.md` | Runs a live PR risk analysis using inline bash + radon/vulture (no package install needed) |
+| `/score-pr-pypi` | `.claude/commands/score-pr-pypi.md` | Installs `pr-risk-scorer` from PyPI then runs the analyzers via the installed package |
+
+### Adding the skill to another project
+
+Any project can use `/score-pr-pypi` without cloning this repo:
+
+1. Create `.claude/commands/score-pr-pypi.md` in the target repo and paste the content from this repo's file (or copy it directly).
+2. Inside a Claude Code session run `/score-pr-pypi` — Claude will `pip install pr-risk-scorer` and print the risk table.
+3. No GitHub token or CI config required; all analyzers run locally.
 
 ## Publishing
 
@@ -68,6 +77,18 @@ git push origin v1.2.3
 ### Python package (PyPI)
 
 The `publish.yml` workflow uses OIDC Trusted Publishing — no token needed locally. To trigger it, push a `v*.*.*` tag. First-time setup requires adding `fasterapiweb/pr-risk-scorer` as a Trusted Publisher on PyPI.
+
+**Before tagging a new release**, bump the version in two places so they stay in sync:
+- `pyproject.toml` → `version = "X.Y.Z"`
+- `src/__init__.py` → `__version__ = "X.Y.Z"`
+
+Then build and publish:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+# publish.yml triggers automatically
+```
 
 To build locally:
 
