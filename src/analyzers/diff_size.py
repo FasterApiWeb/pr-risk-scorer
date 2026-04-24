@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 import subprocess
 
-from src.analyzers import BaseAnalyzer
+from . import BaseAnalyzer
 
 # Lines changed before reaching maximum risk score
 MAX_LINES: int = 1000

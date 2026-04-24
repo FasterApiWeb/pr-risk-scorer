@@ -37,6 +37,7 @@ nav:
   - Getting Started: getting-started.md
   - Configuration: configuration.md
   - Signals: signals.md
+  - Using as a Skill: using-as-skill.md
   - Contributing: contributing.md
 
 plugins:

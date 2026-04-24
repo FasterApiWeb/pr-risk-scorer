@@ -4,7 +4,7 @@ import subprocess
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from src.analyzers import BaseAnalyzer
+from . import BaseAnalyzer
 
 _COVERAGE_XML_CANDIDATES: list[str] = ["coverage.xml", ".coverage.xml"]
 # When no coverage data exists, assume medium-high risk.
