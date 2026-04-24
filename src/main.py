@@ -3,13 +3,13 @@ from __future__ import annotations
 import os
 import sys
 
-from src.analyzers.complexity import ComplexityAnalyzer
-from src.analyzers.coverage import CoverageAnalyzer
-from src.analyzers.dead_code import DeadCodeAnalyzer
-from src.analyzers.diff_size import DiffSizeAnalyzer
-from src.analyzers.migration import MigrationAnalyzer
-from src.reporter import Reporter
-from src.scorer import Scorer
+from .analyzers.complexity import ComplexityAnalyzer
+from .analyzers.coverage import CoverageAnalyzer
+from .analyzers.dead_code import DeadCodeAnalyzer
+from .analyzers.diff_size import DiffSizeAnalyzer
+from .analyzers.migration import MigrationAnalyzer
+from .reporter import Reporter
+from .scorer import Scorer
 
 
 def main() -> None:

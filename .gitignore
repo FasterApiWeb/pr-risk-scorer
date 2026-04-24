@@ -12,3 +12,6 @@ htmlcov/
 .mypy_cache/
 .pytest_cache/
 node_modules/
+dist/*.whl
+dist/*.tar.gz
+site/

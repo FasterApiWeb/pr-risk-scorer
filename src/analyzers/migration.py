@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 import subprocess
 
-from src.analyzers import BaseAnalyzer
+from . import BaseAnalyzer
 
 _MIGRATION_PATTERNS: list[str] = [
     r"migrations?/.*\.py$",

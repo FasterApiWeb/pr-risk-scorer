@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import subprocess
 
-from src.analyzers import BaseAnalyzer
+from . import BaseAnalyzer
 
 # Radon scale: A=1-5, B=6-10, C=11-15, D=16-20, E=21-25, F=26+
 # Map raw average complexity (1-26+) onto 0-100 risk.

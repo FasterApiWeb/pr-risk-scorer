@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import subprocess
 
-from src.analyzers import BaseAnalyzer
+from . import BaseAnalyzer
 
 # Items before reaching maximum risk score
 _MAX_DEAD_ITEMS: int = 20
