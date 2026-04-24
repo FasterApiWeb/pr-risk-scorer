@@ -33,7 +33,7 @@ npm run build          # bundles dist/index.js via ncc
 
 # Docs (local preview)
 pip install -r requirements-docs.txt
-mkdocs serve           # http://localhost:8000
+mkdocs serve --config-file mkdocs.local.yml   # http://localhost:8000
 
 # Package build
 pip install build
