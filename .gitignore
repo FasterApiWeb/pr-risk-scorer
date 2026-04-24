@@ -14,3 +14,4 @@ htmlcov/
 node_modules/
 dist/*.whl
 dist/*.tar.gz
+site/
