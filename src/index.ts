@@ -2,6 +2,7 @@ import * as core from '@actions/core';
 import * as github from '@actions/github';
 import * as fs from 'fs';
 import * as path from 'path';
+import { Octokit } from '@octokit/rest';
 
 import { filesChanged } from './signals/filesChanged';
 import { complexityDelta } from './signals/complexityDelta';
@@ -9,6 +10,10 @@ import { coverageRatio } from './signals/coverageRatio';
 import { migrationFiles } from './signals/migrationFiles';
 import { deadCode } from './signals/deadCode';
 import type { Signal } from './signals/types';
+import { postComment } from './comment';
+import { runNotifications } from './notifications/index';
+import type { NotificationsConfig } from './notifications/index';
+import type { RiskBand, ScoreResult } from './scorer';
 
 interface Config {
   weights?: {
@@ -24,6 +29,7 @@ interface Config {
   };
   block_merge?: number;
   required_approvers?: string[];
+  notifications?: NotificationsConfig;
 }
 
 const DEFAULT_WEIGHTS = {
@@ -155,6 +161,38 @@ async function run(): Promise<void> {
       ...(existingFileSha !== undefined && { sha: existingFileSha }),
       ...(branch !== undefined && { branch }),
     });
+  }
+
+  const prPayload = github.context.payload.pull_request;
+  const prNumber = prPayload?.number as number | undefined;
+
+  if (prNumber !== undefined && prPayload !== undefined) {
+    const restOctokit = octokit as unknown as Octokit;
+    const threshold = thresholds.medium;
+
+    const scoreResult: ScoreResult = {
+      total: totalScore,
+      band: band.toLowerCase() as RiskBand,
+      signals: Object.entries(signals).map(([name, signal]) => ({
+        name,
+        score: signal.score,
+        weight: (weights[name as keyof typeof weights] ?? 0) * 100,
+        detail: signal.detail,
+      })),
+    };
+
+    await postComment(restOctokit, owner, repo, prNumber, scoreResult, threshold);
+
+    if (config.notifications !== undefined) {
+      const prContext = {
+        prTitle: (prPayload.title as string | undefined) ?? `${owner}/${repo}#${prNumber}`,
+        prUrl: (prPayload.html_url as string | undefined) ?? `https://github.com/${owner}/${repo}/pull/${prNumber}`,
+        branchName: (prPayload.head?.ref as string | undefined) ?? '',
+      };
+
+      const notifResults = await runNotifications(config.notifications, scoreResult, prContext);
+      await postComment(restOctokit, owner, repo, prNumber, scoreResult, threshold, notifResults);
+    }
   }
 }
 
