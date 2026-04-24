@@ -9,25 +9,29 @@ const SIGNAL_LABELS: Record<string, string> = {
   coverageRatio: 'Coverage Gap',
   migrationFiles: 'Migrations',
   deadCode: 'Dead Code',
+  secret_leak: 'Secret Leak',
+  bundle_size_delta: 'Bundle Size',
+  api_breaking_changes: 'API Breaking',
 };
 
 function badge(band: RiskBand): string {
-  if (band === 'LOW') return '🟢 LOW';
-  if (band === 'MEDIUM') return '🟡 MEDIUM';
+  if (band === 'low') return '🟢 LOW';
+  if (band === 'medium') return '🟡 MEDIUM';
+  if (band === 'critical') return '🚨 CRITICAL';
   return '🔴 HIGH';
 }
 
 function signalBand(score: number): RiskBand {
-  if (score < 40) return 'LOW';
-  if (score <= 70) return 'MEDIUM';
-  return 'HIGH';
+  if (score < 40) return 'low';
+  if (score <= 70) return 'medium';
+  return 'high';
 }
 
 function buildBody(result: ScoreResult, threshold: number): string {
   const status = result.total <= threshold ? '✅ PASS' : '❌ FAIL';
   const rows = result.signals
     .map(s => {
-      const label = `${SIGNAL_LABELS[s.name] ?? s.name} (${Math.round(s.weight * 100)}%)`;
+      const label = `${SIGNAL_LABELS[s.name] ?? s.name} (${Math.round(s.weight)}%)`;
       return `| ${label} | ${s.score.toFixed(1)} | ${badge(signalBand(s.score))} |`;
     })
     .join('\n');

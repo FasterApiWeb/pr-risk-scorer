@@ -1,11 +1,25 @@
-import { spawnSync } from 'child_process';
-import { filesChanged } from './signals/filesChanged';
-import { complexityDelta } from './signals/complexityDelta';
-import { coverageRatio } from './signals/coverageRatio';
-import { migrationFiles } from './signals/migrationFiles';
-import { deadCode } from './signals/deadCode';
-import { secretLeak } from './signals/secretLeak';
 import type { Signal } from './signals/types';
+import type { SecretLeakResult } from './signals/secretLeak';
+import type { BundleSizeResult } from './signals/bundleSizeDelta';
+import type { ApiBreakingResult } from './signals/apiBreaking';
+
+export class ConfigError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ConfigError';
+  }
+}
+
+export interface ScorerInput {
+  filesChanged: Signal;
+  complexityDelta: Signal;
+  coverageRatio: Signal;
+  migrationFiles: Signal;
+  deadCode: Signal;
+  secretLeak: SecretLeakResult;
+  bundleSize: BundleSizeResult;
+  apiBreaking: ApiBreakingResult;
+}
 
 export interface WeightConfig {
   filesChanged?: number;
@@ -13,11 +27,15 @@ export interface WeightConfig {
   coverageRatio?: number;
   migrationFiles?: number;
   deadCode?: number;
+  secret_leak?: number;
+  bundle_size_delta?: number;
+  api_breaking_changes?: number;
 }
 
 export interface ThresholdConfig {
   medium?: number;
   high?: number;
+  critical?: number;
 }
 
 export interface ScorerConfig {
@@ -32,96 +50,122 @@ export interface SignalResult {
   detail: string;
 }
 
-export type RiskBand = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+export type RiskBand = 'low' | 'medium' | 'high' | 'critical';
 
 export interface ScoreResult {
   total: number;
   band: RiskBand;
   signals: SignalResult[];
+  override?: string;
 }
 
 const DEFAULT_WEIGHTS: Required<WeightConfig> = {
-  filesChanged: 0.20,
-  complexityDelta: 0.30,
-  coverageRatio: 0.20,
-  migrationFiles: 0.15,
-  deadCode: 0.15,
+  filesChanged: 15,
+  complexityDelta: 20,
+  coverageRatio: 15,
+  migrationFiles: 10,
+  deadCode: 10,
+  secret_leak: 10,
+  bundle_size_delta: 10,
+  api_breaking_changes: 10,
 };
 
-const DEFAULT_THRESHOLDS = { medium: 40, high: 70 };
+const DEFAULT_THRESHOLDS: Required<ThresholdConfig> = {
+  medium: 40,
+  high: 70,
+  critical: 81,
+};
 
-function toBand(total: number, thresholds: { medium: number; high: number }): RiskBand {
-  if (total < thresholds.medium) return 'LOW';
-  if (total <= thresholds.high) return 'MEDIUM';
-  return 'HIGH';
+function toBand(total: number, thresholds: Required<ThresholdConfig>): RiskBand {
+  if (total >= thresholds.critical) return 'critical';
+  if (total > thresholds.high) return 'high';
+  if (total >= thresholds.medium) return 'medium';
+  return 'low';
 }
 
-function fetchGitDiff(workspaceDir: string): string {
-  try {
-    const result = spawnSync('git', ['diff', 'HEAD~1'], {
-      cwd: workspaceDir,
-      encoding: 'utf8',
-      maxBuffer: 10 * 1024 * 1024,
-    });
-    return result.stdout ?? '';
-  } catch {
-    return '';
+function validateWeights(weights: Required<WeightConfig>): void {
+  const sum = Object.values(weights).reduce((a, b) => a + b, 0);
+  if (Math.abs(sum - 100) > 0.01) {
+    throw new ConfigError(
+      `Weights must sum to 100, got ${sum.toFixed(2)}`,
+    );
   }
 }
 
-export async function score(
-  token: string,
-  workspaceDir = '.',
-  config: ScorerConfig = {},
-): Promise<ScoreResult> {
+export function score(inputs: ScorerInput, config: ScorerConfig = {}): ScoreResult {
   const weights = { ...DEFAULT_WEIGHTS, ...config.weights };
   const thresholds = { ...DEFAULT_THRESHOLDS, ...config.thresholds };
+  validateWeights(weights);
 
-  const diff = fetchGitDiff(workspaceDir);
-
-  const [fc, cd, cr, mf, dc, sl] = await Promise.allSettled([
-    filesChanged(token),
-    complexityDelta(token),
-    coverageRatio(workspaceDir),
-    migrationFiles(workspaceDir),
-    deadCode(),
-    secretLeak(diff),
-  ]);
-
-  function resolve(result: PromiseSettledResult<Signal>, name: string): Signal {
-    if (result.status === 'fulfilled') return result.value;
-    return { score: 0, detail: `error: ${String(result.reason)}` };
-  }
-
-  const named: Array<{ name: keyof Required<WeightConfig>; signal: Signal }> = [
-    { name: 'filesChanged', signal: resolve(fc, 'filesChanged') },
-    { name: 'complexityDelta', signal: resolve(cd, 'complexityDelta') },
-    { name: 'coverageRatio', signal: resolve(cr, 'coverageRatio') },
-    { name: 'migrationFiles', signal: resolve(mf, 'migrationFiles') },
-    { name: 'deadCode', signal: resolve(dc, 'deadCode') },
+  const signals: SignalResult[] = [
+    {
+      name: 'filesChanged',
+      score: inputs.filesChanged.score,
+      weight: weights.filesChanged,
+      detail: inputs.filesChanged.detail,
+    },
+    {
+      name: 'complexityDelta',
+      score: inputs.complexityDelta.score,
+      weight: weights.complexityDelta,
+      detail: inputs.complexityDelta.detail,
+    },
+    {
+      name: 'coverageRatio',
+      score: inputs.coverageRatio.score,
+      weight: weights.coverageRatio,
+      detail: inputs.coverageRatio.detail,
+    },
+    {
+      name: 'migrationFiles',
+      score: inputs.migrationFiles.score,
+      weight: weights.migrationFiles,
+      detail: inputs.migrationFiles.detail,
+    },
+    {
+      name: 'deadCode',
+      score: inputs.deadCode.score,
+      weight: weights.deadCode,
+      detail: inputs.deadCode.detail,
+    },
+    {
+      name: 'secret_leak',
+      score: inputs.secretLeak.score,
+      weight: weights.secret_leak,
+      detail: inputs.secretLeak.detail,
+    },
+    {
+      name: 'bundle_size_delta',
+      score: inputs.bundleSize.score,
+      weight: weights.bundle_size_delta,
+      detail: inputs.bundleSize.detail,
+    },
+    {
+      name: 'api_breaking_changes',
+      score: inputs.apiBreaking.score,
+      weight: weights.api_breaking_changes,
+      detail: inputs.apiBreaking.detail,
+    },
   ];
 
-  const signals: SignalResult[] = named.map(({ name, signal }) => ({
-    name,
-    score: signal.score,
-    weight: weights[name],
-    detail: signal.detail,
-  }));
+  const weighted = Math.min(
+    100,
+    Math.max(
+      0,
+      Math.round(
+        signals.reduce((sum, s) => sum + (s.score * s.weight) / 100, 0),
+      ),
+    ),
+  );
 
-  const weightSum = signals.reduce((s, r) => s + r.weight, 0);
-  const weightedSum = signals.reduce((s, r) => s + r.score * r.weight, 0);
-  const baseTotal = weightSum > 0
-    ? Math.min(100, Math.max(0, Math.round(weightedSum / weightSum)))
-    : 0;
+  if (inputs.secretLeak.triggered) {
+    return {
+      total: Math.max(weighted, 81),
+      band: 'critical',
+      override: 'secret_leak',
+      signals,
+    };
+  }
 
-  const slResult = sl.status === 'fulfilled'
-    ? sl.value
-    : { score: 0, triggered: false, detail: `error: ${String(sl.reason)}` };
-
-  signals.push({ name: 'secretLeak', score: slResult.score, weight: 0, detail: slResult.detail });
-
-  const total = Math.min(100, baseTotal + slResult.score);
-  const band: RiskBand = slResult.triggered ? 'CRITICAL' : toBand(total, thresholds);
-
-  return { total, band, signals };
+  return { total: weighted, band: toBand(weighted, thresholds), signals };
 }
