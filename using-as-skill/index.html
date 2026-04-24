@@ -10,11 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://fasterapiweb.github.io/pr-risk-scorer/contributing/">
+        <link rel="canonical" href="https://fasterapiweb.github.io/pr-risk-scorer/using-as-skill/">
       
       
-        <link rel="prev" href="../using-as-skill/">
+        <link rel="prev" href="../signals/">
       
+      
+        <link rel="next" href="../contributing/">
       
       
         
@@ -25,7 +27,7 @@
     
     
       
-        <title>Contributing - PR Risk Scorer</title>
+        <title>Using as a Skill - PR Risk Scorer</title>
       
     
     
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#contributing" class="md-skip">
+        <a href="#using-pr-risk-scorer-as-an-ai-coding-skill" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Contributing
+              Using as a Skill
             
           </span>
         </div>
@@ -297,9 +299,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../using-as-skill/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -316,11 +320,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
         
   
   
@@ -490,33 +492,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../using-as-skill/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Using as a Skill
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -536,7 +511,7 @@
   <span class="md-ellipsis">
     
   
-    Contributing
+    Using as a Skill
   
 
     
@@ -554,7 +529,7 @@
   <span class="md-ellipsis">
     
   
-    Contributing
+    Using as a Skill
   
 
     
@@ -580,10 +555,77 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#development-setup" class="md-nav__link">
+  <a href="#claude-code" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Development setup
+        Claude Code
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Claude Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#score-pr-slash-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /score-pr slash command
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-copilot-codex-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Copilot (Codex / Chat)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitHub Copilot (Codex / Chat)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-workspace-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Create workspace instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-use-copilot-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Use Copilot Chat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cursor
       
     </span>
   </a>
@@ -591,10 +633,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-structure" class="md-nav__link">
+  <a href="#openai-codex-chatgpt" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project structure
+        OpenAI Codex / ChatGPT
       
     </span>
   </a>
@@ -602,54 +644,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-tests" class="md-nav__link">
+  <a href="#github-actions-automated" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Running tests
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adding-a-new-signal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Adding a new signal
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#building-the-docs-locally" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Building the docs locally
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#commit-style" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Commit style
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pull-request-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pull request checklist
+        GitHub Actions (automated)
       
     </span>
   </a>
@@ -660,6 +658,33 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -691,10 +716,77 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#development-setup" class="md-nav__link">
+  <a href="#claude-code" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Development setup
+        Claude Code
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Claude Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#score-pr-slash-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /score-pr slash command
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-copilot-codex-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Copilot (Codex / Chat)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitHub Copilot (Codex / Chat)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-workspace-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Create workspace instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-use-copilot-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Use Copilot Chat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cursor
       
     </span>
   </a>
@@ -702,10 +794,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-structure" class="md-nav__link">
+  <a href="#openai-codex-chatgpt" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project structure
+        OpenAI Codex / ChatGPT
       
     </span>
   </a>
@@ -713,54 +805,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-tests" class="md-nav__link">
+  <a href="#github-actions-automated" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Running tests
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adding-a-new-signal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Adding a new signal
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#building-the-docs-locally" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Building the docs locally
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#commit-style" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Commit style
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pull-request-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pull request checklist
+        GitHub Actions (automated)
       
     </span>
   </a>
@@ -787,87 +835,94 @@
   
 
 
-<h1 id="contributing">Contributing</h1>
-<p>Thank you for your interest in contributing to PR Risk Scorer!</p>
-<h2 id="development-setup">Development setup</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/FasterApiWeb/pr-risk-scorer.git
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>pr-risk-scorer
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>npm<span class="w"> </span>install
+<h1 id="using-pr-risk-scorer-as-an-ai-coding-skill">Using PR Risk Scorer as an AI Coding Skill</h1>
+<p>You can integrate PR Risk Scorer into AI coding assistants so they score pull requests automatically as part of code reviews.</p>
+<hr />
+<h2 id="claude-code">Claude Code</h2>
+<h3 id="score-pr-slash-command"><code>/score-pr</code> slash command</h3>
+<p>The repository ships a custom Claude Code slash command at <code>.claude/commands/score-pr.md</code>. When you open the project in Claude Code, the <code>/score-pr</code> command becomes available.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/score-pr
 </code></pre></div>
-<h2 id="project-structure">Project structure</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pr-risk-scorer/
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── action.yml                    # GitHub Action definition (inputs, outputs, entry point)
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── src/
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│   ├── index.ts                  # Entry point — orchestrates signals → score → comment
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│   ├── scorer.ts                 # Weighted scoring engine
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│   ├── comment.ts                # Builds and posts the PR comment via Octokit
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   ├── config.ts                 # Zod-validated YAML config loader
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   └── signals/
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│       ├── types.ts              # Signal interface
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│       ├── filesChanged.ts       # GitHub API — PR file list
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│       ├── complexityDelta.ts    # lizard cyclomatic complexity
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│       ├── coverageRatio.ts      # lcov.info / coverage.xml parser
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│       ├── migrationFiles.ts     # Filesystem glob for migration files
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│       └── deadCode.ts           # ts-prune / vulture dead-code count
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>├── src/__tests__/                # Jest unit tests
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>├── dist/                         # Bundled output (committed — required by GitHub Actions)
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>├── docs/                         # MkDocs source (this site)
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>└── mkdocs.yml                    # MkDocs configuration
-</code></pre></div>
-<h2 id="running-tests">Running tests</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>npm<span class="w"> </span><span class="nb">test</span><span class="w">          </span><span class="c1"># Jest unit tests</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>npm<span class="w"> </span>run<span class="w"> </span>typecheck<span class="w"> </span><span class="c1"># TypeScript type checking (tsc --noEmit)</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>npm<span class="w"> </span>run<span class="w"> </span>build<span class="w">     </span><span class="c1"># Bundle with ncc → dist/</span>
-</code></pre></div>
-<p>All tests must pass and <code>tsc --noEmit</code> must report zero errors before a PR is merged.</p>
-<h2 id="adding-a-new-signal">Adding a new signal</h2>
+<p>Claude will:</p>
 <ol>
-<li>
-<p>Create <code>src/signals/my_signal.ts</code> exporting an async function that returns a <code>Signal</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Signal</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./types&#39;</span><span class="p">;</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">mySignal</span><span class="p">(</span><span class="nx">workspaceDir</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Signal</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="c1">// ... compute score 0–100</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">score</span><span class="o">:</span><span class="w"> </span><span class="kt">42</span><span class="p">,</span><span class="w"> </span><span class="nx">detail</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;human-readable explanation&#39;</span><span class="w"> </span><span class="p">};</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">}</span>
-</code></pre></div>
-</li>
-<li>
-<p>Import and call it in <code>src/scorer.ts</code> alongside the existing <code>Promise.allSettled</code> call.</p>
-</li>
-<li>
-<p>Add a weight key in <code>src/scorer.ts</code> under <code>DEFAULT_WEIGHTS</code>. Weights are normalized, so you only need to maintain relative proportions.</p>
-</li>
-<li>
-<p>Expose the new weight key in <code>WeightConfig</code> and <code>ConfigSchema</code> inside <code>src/config.ts</code>.</p>
-</li>
-<li>
-<p>Add unit tests in <code>src/__tests__/my_signal.test.ts</code>.</p>
-</li>
-<li>
-<p>Document the signal in <a href="../signals/"><code>docs/signals.md</code></a>.</p>
-</li>
+<li>Run <code>git diff HEAD~1 HEAD</code> to collect structural signals</li>
+<li>Score each dimension using the same weights as the GitHub Action</li>
+<li>Print a Markdown risk table with per-signal scores and a weighted total</li>
+<li>Recommend which signal to address first</li>
 </ol>
-<h2 id="building-the-docs-locally">Building the docs locally</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span>mkdocs-material
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>mkdocs<span class="w"> </span>serve<span class="w">        </span><span class="c1"># live-reload preview at http://localhost:8000</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>mkdocs<span class="w"> </span>build<span class="w">        </span><span class="c1"># static output → site/</span>
+<p><strong>Install for any project:</strong></p>
+<p>Copy <code>.claude/commands/score-pr.md</code> into the target repository's <code>.claude/commands/</code> directory. The command is immediately available in Claude Code without configuration.</p>
+<p><strong>Global install:</strong></p>
+<p>To make the command available in every project, copy the file to your user-level commands directory:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.claude/commands
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>cp<span class="w"> </span>.claude/commands/score-pr.md<span class="w"> </span>~/.claude/commands/score-pr.md
 </code></pre></div>
-<h2 id="commit-style">Commit style</h2>
-<p>Follow <a href="https://www.conventionalcommits.org/">Conventional Commits</a>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>feat: add dependency-age signal
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>fix: clamp filesChanged score at 100 when diff is empty
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>docs: add Go coverage example to signals page
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>chore: upgrade lizard to 1.17
+<hr />
+<h2 id="github-copilot-codex-chat">GitHub Copilot (Codex / Chat)</h2>
+<p>Add the scorer's rubric to your workspace instructions so Copilot considers structural risk during code reviews.</p>
+<h3 id="step-1-create-workspace-instructions">Step 1 — Create workspace instructions</h3>
+<p>Create <code>.github/copilot-instructions.md</code> in your repository:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gu">## PR review checklist</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>When reviewing a pull request, compute a structural risk score using these five dimensions:
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>| Signal | Weight | Method |
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>|--------|--------|--------|
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>| Diff Size | 20% | <span class="sb">`min(total_lines / 1000 * 100, 100)`</span> |
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>| Cyclomatic Complexity | 30% | Average radon CC score, normalized 1–26 → 0–100 |
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>| Coverage Gap | 20% | <span class="sb">`(1 - line_rate) * 100`</span> from coverage.xml |
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>| Dead Code | 15% | Vulture items, capped at 20 → 100 |
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>| Migrations | 15% | 0 files=0, 1=60, 2=80, 3+=100 |
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>Weighted total: <span class="sb">`score = 0.20*diff + 0.30*complexity + 0.20*coverage + 0.15*dead + 0.15*migration`</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>Risk tiers: &lt; 40 = LOW 🟢, 40–70 = MEDIUM 🟡, &gt; 70 = HIGH 🔴
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>Include the score table in every PR review comment.
 </code></pre></div>
-<h2 id="pull-request-checklist">Pull request checklist</h2>
-<ul>
-<li>[ ] <code>npm test</code> passes with no failures</li>
-<li>[ ] <code>npm run typecheck</code> reports zero errors</li>
-<li>[ ] New signal has corresponding unit tests</li>
-<li>[ ] <code>dist/</code> is rebuilt with <code>npm run build</code> and committed</li>
-<li>[ ] PR description explains the <em>why</em> of the change</li>
-</ul>
+<h3 id="step-2-use-copilot-chat">Step 2 — Use Copilot Chat</h3>
+<p>In VS Code, open Copilot Chat and ask:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>@workspace Score this PR for structural risk using the rubric in copilot-instructions.md
+</code></pre></div>
+<p>Copilot will apply the weights and return a formatted risk table.</p>
+<hr />
+<h2 id="cursor">Cursor</h2>
+<p>Add the scoring rubric to your project's <code>.cursor/rules</code> file (or <code>cursor_rules.md</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gu">## PR Risk Scoring</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Before approving any PR, compute and display a risk score:
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">-</span><span class="w"> </span>Diff Size (20%): lines changed / 1000, capped at 100
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">-</span><span class="w"> </span>Complexity (30%): average cyclomatic complexity via radon, normalized 0–100
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">-</span><span class="w"> </span>Coverage Gap (20%): 1 − coverage line-rate, as a percentage
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">-</span><span class="w"> </span>Dead Code (15%): vulture items / 20, capped at 100
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">-</span><span class="w"> </span>Migrations (15%): 0→0, 1→60, 2→80, 3+→100
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>Total = weighted sum. LOW &lt; 40, MEDIUM 40–70, HIGH &gt; 70.
+</code></pre></div>
+<hr />
+<h2 id="openai-codex-chatgpt">OpenAI Codex / ChatGPT</h2>
+<p>You can attach the scoring rubric as a system prompt or a file upload. Create a plain-text file <code>pr-risk-rubric.txt</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>PR Risk Scoring Rubric
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Signals and weights:
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  Diff Size     20%  min(lines_changed / 1000 * 100, 100)
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  Complexity    30%  min((avg_cc - 1) / 25 * 100, 100)   [radon output]
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  Coverage Gap  20%  (1 - line_rate) * 100                [coverage.xml]
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  Dead Code     15%  min(vulture_items / 20 * 100, 100)
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  Migrations    15%  0→0, 1→60, 2→80, 3+→100
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>Total = weighted sum. Tiers: LOW &lt; 40, MEDIUM 40–70, HIGH &gt; 70.
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>For every PR, output a Markdown table with each signal&#39;s score and the weighted total.
+</code></pre></div>
+<p>Attach this file in the ChatGPT conversation or include it in your Codex system prompt.</p>
+<hr />
+<h2 id="github-actions-automated">GitHub Actions (automated)</h2>
+<p>The fastest way to get risk scores on every PR is the GitHub Action itself. See <a href="../getting-started/">Getting Started</a> for the workflow YAML.</p>
+<p>The action posts the score as a PR comment and sets a commit status — no AI assistant required.</p>
+<hr />
+<p><strong>Next step:</strong> <a href="../configuration/">Configuration →</a></p>
 
 
 
@@ -903,7 +958,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../using-as-skill/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Using as a Skill">
+          <a href="../signals/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Signals">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -913,11 +968,27 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Using as a Skill
+                Signals
               </div>
             </div>
           </a>
         
+        
+          
+          <a href="../contributing/" class="md-footer__link md-footer__link--next" aria-label="Next: Contributing">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Contributing
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
