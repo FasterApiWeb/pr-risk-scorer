@@ -3,37 +3,100 @@ import * as path from 'path';
 import { load as parseYaml } from 'js-yaml';
 import { z } from 'zod';
 
-const WeightsSchema = z.object({
-  filesChanged:   z.number().min(0).max(1).default(0.20),
-  complexityDelta: z.number().min(0).max(1).default(0.30),
-  coverageRatio:  z.number().min(0).max(1).default(0.20),
-  migrationFiles: z.number().min(0).max(1).default(0.15),
-  deadCode:       z.number().min(0).max(1).default(0.15),
+// ── Notification schemas ──────────────────────────────────────────────────
+
+const SlackConfigSchema = z.object({
+  webhookSecret: z.string(),
+  minScore:      z.number().int().min(0).max(100),
+  channel:       z.string().optional(),
 });
+
+const JiraConfigSchema = z.object({
+  baseUrl:      z.string().url(),
+  projectKey:   z.string(),
+  tokenSecret:  z.string(),
+  emailSecret:  z.string(),
+  minScore:     z.number().int().min(0).max(100),
+});
+
+const LinearConfigSchema = z.object({
+  tokenSecret: z.string(),
+  teamId:      z.string(),
+  label:       z.string(),
+  minScore:    z.number().int().min(0).max(100),
+});
+
+const NotificationsSchema = z.object({
+  slack:  SlackConfigSchema.optional(),
+  jira:   JiraConfigSchema.optional(),
+  linear: LinearConfigSchema.optional(),
+});
+
+// ── AI suggestions schema ─────────────────────────────────────────────────
+
+const AiSuggestionsConfigSchema = z.object({
+  enabled:              z.boolean().default(true),
+  min_score:            z.number().int().min(0).max(100),
+  anthropicTokenSecret: z.string().optional(),
+  maxTokens:            z.number().int().positive().optional(),
+});
+
+// ── Weights schema ────────────────────────────────────────────────────────
+
+const DEFAULT_WEIGHTS = {
+  filesChanged:         15,
+  complexityDelta:      25,
+  coverageRatio:        15,
+  migrationFiles:       10,
+  deadCode:             10,
+  secret_leak:          15,
+  bundle_size_delta:     5,
+  api_breaking_changes:  5,
+} as const;
+
+const WeightsSchema = z
+  .object({
+    filesChanged:         z.number().min(0).max(100).default(DEFAULT_WEIGHTS.filesChanged),
+    complexityDelta:      z.number().min(0).max(100).default(DEFAULT_WEIGHTS.complexityDelta),
+    coverageRatio:        z.number().min(0).max(100).default(DEFAULT_WEIGHTS.coverageRatio),
+    migrationFiles:       z.number().min(0).max(100).default(DEFAULT_WEIGHTS.migrationFiles),
+    deadCode:             z.number().min(0).max(100).default(DEFAULT_WEIGHTS.deadCode),
+    secret_leak:          z.number().min(0).max(100).default(DEFAULT_WEIGHTS.secret_leak),
+    bundle_size_delta:    z.number().min(0).max(100).default(DEFAULT_WEIGHTS.bundle_size_delta),
+    api_breaking_changes: z.number().min(0).max(100).default(DEFAULT_WEIGHTS.api_breaking_changes),
+  })
+  .refine(
+    (w) => Math.abs(Object.values(w).reduce((sum, v) => sum + v, 0) - 100) < 0.01,
+    { message: 'weights must sum to 100' },
+  );
+
+// ── Thresholds schema ─────────────────────────────────────────────────────
+
+const DEFAULT_THRESHOLDS = { medium: 40, high: 70 } as const;
 
 const ThresholdsSchema = z.object({
   medium: z.number().int().min(0).max(100).default(40),
   high:   z.number().int().min(0).max(100).default(70),
 });
 
-const DEFAULT_WEIGHTS = {
-  filesChanged:    0.20,
-  complexityDelta: 0.30,
-  coverageRatio:   0.20,
-  migrationFiles:  0.15,
-  deadCode:        0.15,
-} as const;
-
-const DEFAULT_THRESHOLDS = { medium: 40, high: 70 } as const;
+// ── Root config schema ────────────────────────────────────────────────────
 
 const ConfigSchema = z.object({
   weights:            WeightsSchema.default(DEFAULT_WEIGHTS),
   thresholds:         ThresholdsSchema.default(DEFAULT_THRESHOLDS),
   block_merge:        z.number().int().min(0).max(100).optional(),
   required_approvers: z.array(z.string()).optional(),
+  notifications:      NotificationsSchema.optional(),
+  ai_suggestions:     AiSuggestionsConfigSchema.optional(),
 });
 
+export type SlackConfig = z.infer<typeof SlackConfigSchema>;
+export type JiraConfig = z.infer<typeof JiraConfigSchema>;
+export type LinearConfig = z.infer<typeof LinearConfigSchema>;
+export type AiSuggestionsConfig = z.infer<typeof AiSuggestionsConfigSchema>;
 export type Config = z.infer<typeof ConfigSchema>;
+
+// ── Config loader ─────────────────────────────────────────────────────────
 
 const CONFIG_PATH = '.github/pr-risk-scorer.yml';
 
