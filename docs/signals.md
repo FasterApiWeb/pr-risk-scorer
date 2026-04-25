@@ -1,6 +1,6 @@
 # Signals
 
-The total risk score is the weighted sum of eight independent signals. Each signal returns a value between **0** (no risk) and **100** (maximum risk), multiplied by its weight (an integer out of 100).
+The total risk score is the weighted sum of nine independent signals. Each signal returns a value between **0** (no risk) and **100** (maximum risk), multiplied by its weight (an integer out of 100).
 
 If a signal's tool is unavailable (e.g., `lizard` is not installed), the signal returns `0` and logs a warning — the remaining signals still contribute normally.
 
@@ -8,7 +8,7 @@ If a signal's tool is unavailable (e.g., `lizard` is not installed), the signal 
 
 ## Files changed
 
-**Default weight: 15** | Source: GitHub REST API
+**Default weight: 8** | Source: GitHub REST API
 
 Counts the number of files touched by the PR (additions + deletions per file) and the total lines changed.
 
@@ -24,7 +24,7 @@ The score reflects how many distinct files the reviewer must context-switch acro
 
 ## Cyclomatic complexity delta
 
-**Default weight: 25** | Source: [`lizard`](https://github.com/terryyin/lizard)
+**Default weight: 17** | Source: [`lizard`](https://github.com/terryyin/lizard)
 
 Runs `lizard --csv` over changed source files (`.py`, `.js`, `.ts`, `.java`, `.go`, and others) and computes the average cyclomatic complexity number (CCN) across all analysed functions.
 
@@ -87,7 +87,7 @@ If neither file exists, the signal defaults to **50** (neutral) and logs a notic
 
 ## Migration files
 
-**Default weight: 10** | Source: filesystem glob
+**Default weight: 12** | Source: filesystem glob
 
 Scans the workspace for database migration files matching:
 
@@ -111,7 +111,7 @@ Any migration file signals schema changes, which carry deployment and rollback r
 
 ## Dead code
 
-**Default weight: 10** | Source: `ts-prune` or `vulture`
+**Default weight: 8** | Source: `ts-prune` or `vulture`
 
 Counts unused exports (TypeScript) or dead symbols (Python) in the workspace. The action tries `ts-prune` first, then falls back to `vulture`.
 
@@ -139,7 +139,7 @@ Counts unused exports (TypeScript) or dead symbols (Python) in the workspace. Th
 
 ## Secret leak
 
-**Default weight: 15** | Source: [`gitleaks`](https://github.com/gitleaks/gitleaks)
+**Default weight: 12** | Source: [`gitleaks`](https://github.com/gitleaks/gitleaks)
 
 Scans the PR diff for hardcoded secrets, API keys, tokens, and other credentials using `gitleaks`. When a secret is detected the signal immediately returns the maximum per-signal score and the action sets an override band of **CRITICAL** — regardless of the weighted total.
 
@@ -162,7 +162,7 @@ Scans the PR diff for hardcoded secrets, API keys, tokens, and other credentials
 
 ## Bundle size delta
 
-**Default weight: 5** | Source: [`size-limit`](https://github.com/ai/size-limit)
+**Default weight: 4** | Source: [`size-limit`](https://github.com/ai/size-limit)
 
 Runs `npx size-limit --json` and checks whether any configured size budgets are exceeded. Only active when a `size-limit` key is present in `package.json`.
 
@@ -187,7 +187,7 @@ If no `size-limit` configuration is found, the signal returns `0` and is skipped
 
 ## API breaking changes
 
-**Default weight: 5** | Source: `openapi-diff` / TypeScript compiler
+**Default weight: 4** | Source: `openapi-diff` / TypeScript compiler
 
 Detects backward-incompatible changes in two ways:
 
@@ -207,6 +207,53 @@ If neither an OpenAPI spec nor `.d.ts` files are found, the signal returns `0` a
     ```yaml
     - run: npm install -g openapi-diff
     ```
+
+---
+
+## SonarQube quality gate
+
+**Default weight: 15** | Source: SonarQube REST API (`/api/qualitygates/project_status`)
+
+Polls the SonarQube quality gate result for the PR branch. If the `sonarqube` block is absent from `.github/pr-risk-scorer.yml`, this signal returns `0` silently and its weight still counts toward the total.
+
+| Gate status | Score |
+|-------------|-------|
+| `OK` | 0 |
+| `WARN` | 8 |
+| `ERROR` | 15 |
+| Unavailable / timed out | 0 |
+
+Failed conditions (e.g., *new_coverage < 80%*, *code_smells > 10*) are listed in the PR comment under the SonarQube row.
+
+### Setup
+
+Add a `sonarqube` block to `.github/pr-risk-scorer.yml`:
+
+```yaml
+sonarqube:
+  enabled: true
+  host_url: https://sonarqube.yourorg.com
+  token_secret: SONAR_TOKEN        # name of a GitHub Actions secret
+  project_key: your-project-key
+  wait_for_analysis: true          # poll until SonarQube finishes the PR scan
+  timeout_seconds: 120
+```
+
+Store your SonarQube token as a GitHub Actions secret and pass it to the action:
+
+```yaml
+- uses: fasterapiweb/pr-risk-scorer@v1
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+  env:
+    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+```
+
+!!! note "wait_for_analysis"
+    When `true` (the default), the signal polls every 5 seconds until the quality gate status is no longer `NONE` (analysis still running). If the `timeout_seconds` limit is reached before analysis completes, the signal returns `0` and notes the timeout in the PR comment.
+
+!!! tip "Skipping the signal"
+    Set `enabled: false` or omit the `sonarqube` block entirely to exclude this signal from scoring. Its weight (15 by default) is still counted in the denominator; to redistribute it, override all ten weights so they sum to 100.
 
 ---
 

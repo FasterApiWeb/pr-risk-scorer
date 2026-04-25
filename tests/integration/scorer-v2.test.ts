@@ -23,6 +23,7 @@ function makeZeroInput(): ScorerInput {
     secretLeak:      { score: 0, triggered: false, detail: 'clean' },
     bundleSize:      { score: 0, detail: 'within size limit' },
     apiBreaking:     { score: 0, detail: 'no breaking changes', breakingCount: 0 },
+    sonarQube:       { score: 0, status: 'unavailable', detail: 'skipped', conditions: [] },
   };
 }
 
@@ -185,8 +186,8 @@ describe('scorer-v2 integration', () => {
 
       expect(config.block_merge).toBe(75);
       expect(config.weights).toBeDefined();
-      expect(config.weights.filesChanged).toBe(15);
-      expect(config.weights.complexityDelta).toBe(25);
+      expect(config.weights.filesChanged).toBe(8);
+      expect(config.weights.complexityDelta).toBe(17);
       expect(config.weights.coverageRatio).toBe(15);
       expect(config.thresholds).toBeDefined();
       expect(config.thresholds.medium).toBe(40);

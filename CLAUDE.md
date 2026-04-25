@@ -23,7 +23,10 @@ dist/                 Compiled action bundle (committed)
 
 ```bash
 # Python — run from repo root
-pip install -e ".[dev]"
+# Note: use non-editable install; hatchling does not support editable installs
+# when sources remap a prefix (src → pr_risk_scorer). Tests work fine without
+# editable mode because pytest adds the repo root to sys.path automatically.
+pip install ".[dev]"
 pytest tests/ -v --cov=src
 
 # TypeScript

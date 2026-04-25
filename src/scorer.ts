@@ -2,6 +2,7 @@ import type { Signal } from './signals/types';
 import type { SecretLeakResult } from './signals/secretLeak';
 import type { BundleSizeResult } from './signals/bundleSizeDelta';
 import type { ApiBreakingResult } from './signals/apiBreaking';
+import type { SonarResult } from './signals/sonarQube';
 
 export class ConfigError extends Error {
   constructor(message: string) {
@@ -19,6 +20,8 @@ export interface ScorerInput {
   secretLeak: SecretLeakResult;
   bundleSize: BundleSizeResult;
   apiBreaking: ApiBreakingResult;
+  sonarQube: SonarResult;
+  langSpecificTests?: Signal;
 }
 
 export interface WeightConfig {
@@ -30,6 +33,8 @@ export interface WeightConfig {
   secret_leak?: number;
   bundle_size_delta?: number;
   api_breaking_changes?: number;
+  sonarqube?: number;
+  lang_specific_tests?: number;
 }
 
 export interface ThresholdConfig {
@@ -60,14 +65,16 @@ export interface ScoreResult {
 }
 
 const DEFAULT_WEIGHTS: Required<WeightConfig> = {
-  filesChanged: 15,
-  complexityDelta: 20,
-  coverageRatio: 15,
-  migrationFiles: 10,
-  deadCode: 10,
-  secret_leak: 10,
-  bundle_size_delta: 10,
-  api_breaking_changes: 10,
+  filesChanged:         8,
+  complexityDelta:      17,
+  coverageRatio:        15,
+  migrationFiles:       12,
+  deadCode:             8,
+  secret_leak:          12,
+  bundle_size_delta:    4,
+  api_breaking_changes: 4,
+  sonarqube:            15,
+  lang_specific_tests:  5,
 };
 
 const DEFAULT_THRESHOLDS: Required<ThresholdConfig> = {
@@ -145,6 +152,18 @@ export function score(inputs: ScorerInput, config: ScorerConfig = {}): ScoreResu
       score: inputs.apiBreaking.score,
       weight: weights.api_breaking_changes,
       detail: inputs.apiBreaking.detail,
+    },
+    {
+      name: 'sonarqube',
+      score: inputs.sonarQube.score,
+      weight: weights.sonarqube,
+      detail: inputs.sonarQube.detail,
+    },
+    {
+      name: 'lang_specific_tests',
+      score: inputs.langSpecificTests?.score ?? 0,
+      weight: weights.lang_specific_tests,
+      detail: inputs.langSpecificTests?.detail ?? 'not yet implemented',
     },
   ];
 
