@@ -12,14 +12,24 @@ thresholds:
 block_merge: 80
 
 weights:
-  filesChanged: 15
-  complexityDelta: 25
+  filesChanged: 8
+  complexityDelta: 17
   coverageRatio: 15
-  migrationFiles: 10
-  deadCode: 10
-  secret_leak: 15
-  bundle_size_delta: 5
-  api_breaking_changes: 5
+  migrationFiles: 12
+  deadCode: 8
+  secret_leak: 12
+  bundle_size_delta: 4
+  api_breaking_changes: 4
+  sonarqube: 15
+  lang_specific_tests: 5
+
+sonarqube:
+  enabled: true
+  host_url: https://sonarqube.yourorg.com
+  token_secret: SONAR_TOKEN
+  project_key: your-project-key
+  wait_for_analysis: true
+  timeout_seconds: 120
 
 required_approvers:
   - alice
@@ -88,14 +98,16 @@ Each weight is an integer between `0` and `100`. The values **must sum to exactl
 
 | Key | Default | Signal |
 |-----|---------|--------|
-| `filesChanged` | `15` | Number of files and lines changed |
-| `complexityDelta` | `25` | Cyclomatic complexity of changed functions |
+| `filesChanged` | `8` | Number of files and lines changed |
+| `complexityDelta` | `17` | Cyclomatic complexity of changed functions |
 | `coverageRatio` | `15` | Test coverage gap (inverse of line coverage) |
-| `migrationFiles` | `10` | Database migration files detected |
-| `deadCode` | `10` | Unused exports/symbols introduced |
-| `secret_leak` | `15` | Hardcoded secrets detected by gitleaks |
-| `bundle_size_delta` | `5` | Bundle size budget violations |
-| `api_breaking_changes` | `5` | Breaking API changes (OpenAPI diff / TypeScript) |
+| `migrationFiles` | `12` | Database migration files detected |
+| `deadCode` | `8` | Unused exports/symbols introduced |
+| `secret_leak` | `12` | Hardcoded secrets detected by gitleaks |
+| `bundle_size_delta` | `4` | Bundle size budget violations |
+| `api_breaking_changes` | `4` | Breaking API changes (OpenAPI diff / TypeScript) |
+| `sonarqube` | `15` | SonarQube quality gate result (OK / WARN / ERROR) |
+| `lang_specific_tests` | `5` | Language-specific test signal (reserved for future use) |
 
 !!! note
     Weights are normalized at runtime so partial configs still produce a valid 0–100 result, but the validator will error if the provided values don't sum to 100.
@@ -143,6 +155,23 @@ Optional integrations that fire when a PR's score reaches or exceeds the configu
 
 ---
 
+### `sonarqube`
+
+Connects the SonarQube quality gate signal to your self-hosted or cloud SonarQube instance.
+
+| Key | Type | Required | Default | Description |
+|-----|------|----------|---------|-------------|
+| `enabled` | `boolean` | no | `false` | Master switch. When `false` the signal returns `0`. |
+| `host_url` | `string` (URL) | yes | — | Base URL of your SonarQube instance, e.g. `https://sonarqube.yourorg.com` |
+| `token_secret` | `string` | yes | — | Name of the GitHub Actions secret holding a SonarQube user/project token |
+| `project_key` | `string` | yes | — | SonarQube project key |
+| `wait_for_analysis` | `boolean` | no | `true` | Poll until the quality gate is no longer `NONE` (analysis still running) |
+| `timeout_seconds` | `integer` | no | `120` | Maximum seconds to wait for analysis before returning `0` |
+
+See [Signals → SonarQube quality gate](signals.md#sonarqube-quality-gate) for full setup instructions.
+
+---
+
 ### `ai_suggestions`
 
 Enables Claude-powered improvement suggestions posted as a threaded PR comment. See [AI Suggestions →](ai-suggestions.md) for setup.
@@ -171,14 +200,16 @@ block_merge: 60
 
 ```yaml
 weights:
-  filesChanged: 10
-  complexityDelta: 15
+  filesChanged: 5
+  complexityDelta: 10
   coverageRatio: 30
   migrationFiles: 10
-  deadCode: 10
+  deadCode: 5
   secret_leak: 20
   bundle_size_delta: 2
   api_breaking_changes: 3
+  sonarqube: 10
+  lang_specific_tests: 5
 ```
 
 ### Require team leads on risky PRs
