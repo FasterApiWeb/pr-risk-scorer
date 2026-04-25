@@ -41,17 +41,30 @@ const AiSuggestionsConfigSchema = z.object({
   maxTokens:            z.number().int().positive().optional(),
 });
 
+// ── SonarQube signal schema ───────────────────────────────────────────────
+
+const SonarQubeConfigSchema = z.object({
+  enabled:            z.boolean().default(false),
+  host_url:           z.string().url(),
+  token_secret:       z.string(),
+  project_key:        z.string(),
+  wait_for_analysis:  z.boolean().default(true),
+  timeout_seconds:    z.number().int().positive().default(120),
+});
+
 // ── Weights schema ────────────────────────────────────────────────────────
 
 const DEFAULT_WEIGHTS = {
-  filesChanged:         15,
-  complexityDelta:      25,
+  filesChanged:         8,
+  complexityDelta:      17,
   coverageRatio:        15,
-  migrationFiles:       10,
-  deadCode:             10,
-  secret_leak:          15,
-  bundle_size_delta:     5,
-  api_breaking_changes:  5,
+  migrationFiles:       12,
+  deadCode:             8,
+  secret_leak:          12,
+  bundle_size_delta:    4,
+  api_breaking_changes: 4,
+  sonarqube:            15,
+  lang_specific_tests:  5,
 } as const;
 
 const WeightsSchema = z
@@ -64,6 +77,8 @@ const WeightsSchema = z
     secret_leak:          z.number().min(0).max(100).default(DEFAULT_WEIGHTS.secret_leak),
     bundle_size_delta:    z.number().min(0).max(100).default(DEFAULT_WEIGHTS.bundle_size_delta),
     api_breaking_changes: z.number().min(0).max(100).default(DEFAULT_WEIGHTS.api_breaking_changes),
+    sonarqube:            z.number().min(0).max(100).default(DEFAULT_WEIGHTS.sonarqube),
+    lang_specific_tests:  z.number().min(0).max(100).default(DEFAULT_WEIGHTS.lang_specific_tests),
   })
   .refine(
     (w) => Math.abs(Object.values(w).reduce((sum, v) => sum + v, 0) - 100) < 0.01,
@@ -88,12 +103,14 @@ const ConfigSchema = z.object({
   required_approvers: z.array(z.string()).optional(),
   notifications:      NotificationsSchema.optional(),
   ai_suggestions:     AiSuggestionsConfigSchema.optional(),
+  sonarqube:          SonarQubeConfigSchema.optional(),
 });
 
 export type SlackConfig = z.infer<typeof SlackConfigSchema>;
 export type JiraConfig = z.infer<typeof JiraConfigSchema>;
 export type LinearConfig = z.infer<typeof LinearConfigSchema>;
 export type AiSuggestionsConfig = z.infer<typeof AiSuggestionsConfigSchema>;
+export type SonarQubeConfig = z.infer<typeof SonarQubeConfigSchema>;
 export type Config = z.infer<typeof ConfigSchema>;
 
 // ── Config loader ─────────────────────────────────────────────────────────
