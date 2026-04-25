@@ -671,6 +671,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sonarqube-quality-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SonarQube quality gate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SonarQube quality gate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#score-aggregation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -929,6 +957,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sonarqube-quality-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SonarQube quality gate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SonarQube quality gate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#score-aggregation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -960,11 +1016,11 @@
 
 
 <h1 id="signals">Signals</h1>
-<p>The total risk score is the weighted sum of eight independent signals. Each signal returns a value between <strong>0</strong> (no risk) and <strong>100</strong> (maximum risk), multiplied by its weight (an integer out of 100).</p>
+<p>The total risk score is the weighted sum of nine independent signals. Each signal returns a value between <strong>0</strong> (no risk) and <strong>100</strong> (maximum risk), multiplied by its weight (an integer out of 100).</p>
 <p>If a signal's tool is unavailable (e.g., <code>lizard</code> is not installed), the signal returns <code>0</code> and logs a warning — the remaining signals still contribute normally.</p>
 <hr />
 <h2 id="files-changed">Files changed</h2>
-<p><strong>Default weight: 15</strong> | Source: GitHub REST API</p>
+<p><strong>Default weight: 8</strong> | Source: GitHub REST API</p>
 <p>Counts the number of files touched by the PR (additions + deletions per file) and the total lines changed.</p>
 <table>
 <thead>
@@ -991,7 +1047,7 @@
 <p>The score reflects how many distinct files the reviewer must context-switch across, regardless of line count. A 1,000-line change in a single file scores lower than a 10-line change spread across 60 files.</p>
 <hr />
 <h2 id="cyclomatic-complexity-delta">Cyclomatic complexity delta</h2>
-<p><strong>Default weight: 25</strong> | Source: <a href="https://github.com/terryyin/lizard"><code>lizard</code></a></p>
+<p><strong>Default weight: 17</strong> | Source: <a href="https://github.com/terryyin/lizard"><code>lizard</code></a></p>
 <p>Runs <code>lizard --csv</code> over changed source files (<code>.py</code>, <code>.js</code>, <code>.ts</code>, <code>.java</code>, <code>.go</code>, and others) and computes the average cyclomatic complexity number (CCN) across all analysed functions.</p>
 <table>
 <thead>
@@ -1086,7 +1142,7 @@ If <code>lizard</code> is not found, this signal scores <code>0</code>.</p>
 </div>
 <hr />
 <h2 id="migration-files">Migration files</h2>
-<p><strong>Default weight: 10</strong> | Source: filesystem glob</p>
+<p><strong>Default weight: 12</strong> | Source: filesystem glob</p>
 <p>Scans the workspace for database migration files matching:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>**/migrations/**/*.{sql,py,rb,ts}
 </code></pre></div>
@@ -1124,7 +1180,7 @@ If <code>lizard</code> is not found, this signal scores <code>0</code>.</p>
 <p>Any migration file signals schema changes, which carry deployment and rollback risk regardless of the lines changed.</p>
 <hr />
 <h2 id="dead-code">Dead code</h2>
-<p><strong>Default weight: 10</strong> | Source: <code>ts-prune</code> or <code>vulture</code></p>
+<p><strong>Default weight: 8</strong> | Source: <code>ts-prune</code> or <code>vulture</code></p>
 <p>Counts unused exports (TypeScript) or dead symbols (Python) in the workspace. The action tries <code>ts-prune</code> first, then falls back to <code>vulture</code>.</p>
 <table>
 <thead>
@@ -1165,7 +1221,7 @@ If <code>lizard</code> is not found, this signal scores <code>0</code>.</p>
 </div>
 <hr />
 <h2 id="secret-leak">Secret leak</h2>
-<p><strong>Default weight: 15</strong> | Source: <a href="https://github.com/gitleaks/gitleaks"><code>gitleaks</code></a></p>
+<p><strong>Default weight: 12</strong> | Source: <a href="https://github.com/gitleaks/gitleaks"><code>gitleaks</code></a></p>
 <p>Scans the PR diff for hardcoded secrets, API keys, tokens, and other credentials using <code>gitleaks</code>. When a secret is detected the signal immediately returns the maximum per-signal score and the action sets an override band of <strong>CRITICAL</strong> — regardless of the weighted total.</p>
 <table>
 <thead>
@@ -1198,7 +1254,7 @@ If <code>gitleaks</code> is not found, this signal scores <code>0</code> and log
 </div>
 <hr />
 <h2 id="bundle-size-delta">Bundle size delta</h2>
-<p><strong>Default weight: 5</strong> | Source: <a href="https://github.com/ai/size-limit"><code>size-limit</code></a></p>
+<p><strong>Default weight: 4</strong> | Source: <a href="https://github.com/ai/size-limit"><code>size-limit</code></a></p>
 <p>Runs <code>npx size-limit --json</code> and checks whether any configured size budgets are exceeded. Only active when a <code>size-limit</code> key is present in <code>package.json</code>.</p>
 <table>
 <thead>
@@ -1237,7 +1293,7 @@ If <code>gitleaks</code> is not found, this signal scores <code>0</code> and log
 </div>
 <hr />
 <h2 id="api-breaking-changes">API breaking changes</h2>
-<p><strong>Default weight: 5</strong> | Source: <code>openapi-diff</code> / TypeScript compiler</p>
+<p><strong>Default weight: 4</strong> | Source: <code>openapi-diff</code> / TypeScript compiler</p>
 <p>Detects backward-incompatible changes in two ways:</p>
 <ol>
 <li><strong>OpenAPI spec diff</strong> — if an <code>openapi.yaml</code>, <code>openapi.yml</code>, or <code>openapi.json</code> file exists (including under <code>docs/</code>), runs <code>openapi-diff</code> to compare the base branch version against the PR head.</li>
@@ -1273,9 +1329,65 @@ If <code>gitleaks</code> is not found, this signal scores <code>0</code> and log
 </code></pre></div></p>
 </div>
 <hr />
+<h2 id="sonarqube-quality-gate">SonarQube quality gate</h2>
+<p><strong>Default weight: 15</strong> | Source: SonarQube REST API (<code>/api/qualitygates/project_status</code>)</p>
+<p>Polls the SonarQube quality gate result for the PR branch. If the <code>sonarqube</code> block is absent from <code>.github/pr-risk-scorer.yml</code>, this signal returns <code>0</code> silently and its weight still counts toward the total.</p>
+<table>
+<thead>
+<tr>
+<th>Gate status</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OK</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>WARN</code></td>
+<td>8</td>
+</tr>
+<tr>
+<td><code>ERROR</code></td>
+<td>15</td>
+</tr>
+<tr>
+<td>Unavailable / timed out</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Failed conditions (e.g., <em>new_coverage &lt; 80%</em>, <em>code_smells &gt; 10</em>) are listed in the PR comment under the SonarQube row.</p>
+<h3 id="setup">Setup</h3>
+<p>Add a <code>sonarqube</code> block to <code>.github/pr-risk-scorer.yml</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">sonarqube</span><span class="p">:</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">host_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://sonarqube.yourorg.com</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">token_secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SONAR_TOKEN</span><span class="w">        </span><span class="c1"># name of a GitHub Actions secret</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="nt">project_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-project-key</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="nt">wait_for_analysis</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">          </span><span class="c1"># poll until SonarQube finishes the PR scan</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span><span class="nt">timeout_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">120</span>
+</code></pre></div>
+<p>Store your SonarQube token as a GitHub Actions secret and pass it to the action:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fasterapiweb/pr-risk-scorer@v1</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="nt">github-token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">env</span><span class="p">:</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nt">SONAR_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.SONAR_TOKEN }}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">wait_for_analysis</p>
+<p>When <code>true</code> (the default), the signal polls every 5 seconds until the quality gate status is no longer <code>NONE</code> (analysis still running). If the <code>timeout_seconds</code> limit is reached before analysis completes, the signal returns <code>0</code> and notes the timeout in the PR comment.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Skipping the signal</p>
+<p>Set <code>enabled: false</code> or omit the <code>sonarqube</code> block entirely to exclude this signal from scoring. Its weight (15 by default) is still counted in the denominator; to redistribute it, override all ten weights so they sum to 100.</p>
+</div>
+<hr />
 <h2 id="score-aggregation">Score aggregation</h2>
 <p>The final score is a normalized weighted sum:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>total = round( Σ(signal_score × weight) / Σ(weight) )
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>total = round( Σ(signal_score × weight) / Σ(weight) )
 </code></pre></div>
 <p>Weights are integers (default sum to 100). They are normalized at runtime, so custom configs that don't sum to exactly 100 still produce a valid 0–100 result — but the config validator enforces that they do sum to 100.</p>
 <p>The result is clamped to <code>[0, 100]</code>. A <strong>CRITICAL</strong> override from the secret leak signal bypasses this calculation and immediately sets the band to CRITICAL.</p>
