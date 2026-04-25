@@ -2,26 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://fasterapiweb.github.io/pr-risk-scorer/</loc>
-         <lastmod>2026-04-24</lastmod>
+         <lastmod>2026-04-25</lastmod>
+    </url>
+    <url>
+         <loc>https://fasterapiweb.github.io/pr-risk-scorer/ai-suggestions/</loc>
+         <lastmod>2026-04-25</lastmod>
     </url>
     <url>
          <loc>https://fasterapiweb.github.io/pr-risk-scorer/configuration/</loc>
-         <lastmod>2026-04-24</lastmod>
+         <lastmod>2026-04-25</lastmod>
     </url>
     <url>
          <loc>https://fasterapiweb.github.io/pr-risk-scorer/contributing/</loc>
-         <lastmod>2026-04-24</lastmod>
+         <lastmod>2026-04-25</lastmod>
     </url>
     <url>
          <loc>https://fasterapiweb.github.io/pr-risk-scorer/getting-started/</loc>
-         <lastmod>2026-04-24</lastmod>
+         <lastmod>2026-04-25</lastmod>
+    </url>
+    <url>
+         <loc>https://fasterapiweb.github.io/pr-risk-scorer/notifications/</loc>
+         <lastmod>2026-04-25</lastmod>
     </url>
     <url>
          <loc>https://fasterapiweb.github.io/pr-risk-scorer/signals/</loc>
-         <lastmod>2026-04-24</lastmod>
+         <lastmod>2026-04-25</lastmod>
     </url>
     <url>
          <loc>https://fasterapiweb.github.io/pr-risk-scorer/using-as-skill/</loc>
-         <lastmod>2026-04-24</lastmod>
+         <lastmod>2026-04-25</lastmod>
     </url>
 </urlset>

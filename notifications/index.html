@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://fasterapiweb.github.io/pr-risk-scorer/signals/">
+        <link rel="canonical" href="https://fasterapiweb.github.io/pr-risk-scorer/notifications/">
       
       
-        <link rel="prev" href="../configuration/">
+        <link rel="prev" href="../signals/">
       
       
-        <link rel="next" href="../notifications/">
+        <link rel="next" href="../ai-suggestions/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Signals - PR Risk Scorer</title>
+        <title>Notifications - PR Risk Scorer</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#signals" class="md-skip">
+        <a href="#notifications" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Signals
+              Notifications
             
           </span>
         </div>
@@ -280,11 +280,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../signals/" class="md-tabs__link">
         
   
   
@@ -301,9 +299,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../notifications/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -503,6 +503,33 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../signals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Signals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -522,7 +549,7 @@
   <span class="md-ellipsis">
     
   
-    Signals
+    Notifications
   
 
     
@@ -540,7 +567,7 @@
   <span class="md-ellipsis">
     
   
-    Signals
+    Notifications
   
 
     
@@ -566,44 +593,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#files-changed" class="md-nav__link">
+  <a href="#slack" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Files changed
+        Slack
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cyclomatic-complexity-delta" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cyclomatic complexity delta
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#test-coverage-gap" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test coverage gap
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Test coverage gap">
+    <nav class="md-nav" aria-label="Slack">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#generating-a-coverage-report" class="md-nav__link">
+  <a href="#setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Generating a coverage report
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Message format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration reference
       
     </span>
   </a>
@@ -616,10 +643,88 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#migration-files" class="md-nav__link">
+  <a href="#jira" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Migration files
+        Jira
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Jira">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-reference_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linear">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-reference_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combining-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining integrations
       
     </span>
   </a>
@@ -627,54 +732,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dead-code" class="md-nav__link">
+  <a href="#secret-leak-escalation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dead code
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#secret-leak" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Secret leak
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bundle-size-delta" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bundle size delta
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api-breaking-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        API breaking changes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#score-aggregation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Score aggregation
+        Secret leak escalation
       
     </span>
   </a>
@@ -685,33 +746,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../notifications/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Notifications
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -824,44 +858,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#files-changed" class="md-nav__link">
+  <a href="#slack" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Files changed
+        Slack
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cyclomatic-complexity-delta" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cyclomatic complexity delta
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#test-coverage-gap" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test coverage gap
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Test coverage gap">
+    <nav class="md-nav" aria-label="Slack">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#generating-a-coverage-report" class="md-nav__link">
+  <a href="#setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Generating a coverage report
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Message format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration reference
       
     </span>
   </a>
@@ -874,10 +908,88 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#migration-files" class="md-nav__link">
+  <a href="#jira" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Migration files
+        Jira
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Jira">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-reference_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linear">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-reference_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combining-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining integrations
       
     </span>
   </a>
@@ -885,54 +997,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dead-code" class="md-nav__link">
+  <a href="#secret-leak-escalation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dead code
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#secret-leak" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Secret leak
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bundle-size-delta" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bundle size delta
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api-breaking-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        API breaking changes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#score-aggregation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Score aggregation
+        Secret leak escalation
       
     </span>
   </a>
@@ -959,326 +1027,207 @@
   
 
 
-<h1 id="signals">Signals</h1>
-<p>The total risk score is the weighted sum of eight independent signals. Each signal returns a value between <strong>0</strong> (no risk) and <strong>100</strong> (maximum risk), multiplied by its weight (an integer out of 100).</p>
-<p>If a signal's tool is unavailable (e.g., <code>lizard</code> is not installed), the signal returns <code>0</code> and logs a warning — the remaining signals still contribute normally.</p>
+<h1 id="notifications">Notifications</h1>
+<p>PR Risk Scorer can post alerts to Slack, create Jira issues, and label Linear issues when a PR's score reaches a configured threshold. All integrations are optional and independent — enable any combination.</p>
 <hr />
-<h2 id="files-changed">Files changed</h2>
-<p><strong>Default weight: 15</strong> | Source: GitHub REST API</p>
-<p>Counts the number of files touched by the PR (additions + deletions per file) and the total lines changed.</p>
-<table>
-<thead>
-<tr>
-<th>File count</th>
-<th>Score</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1 – 10</td>
-<td>0 – 30 (linear)</td>
-</tr>
-<tr>
-<td>11 – 50</td>
-<td>30 – 70 (linear)</td>
-</tr>
-<tr>
-<td>51+</td>
-<td>70 – 100 (capped at 100)</td>
-</tr>
-</tbody>
-</table>
-<p>The score reflects how many distinct files the reviewer must context-switch across, regardless of line count. A 1,000-line change in a single file scores lower than a 10-line change spread across 60 files.</p>
-<hr />
-<h2 id="cyclomatic-complexity-delta">Cyclomatic complexity delta</h2>
-<p><strong>Default weight: 25</strong> | Source: <a href="https://github.com/terryyin/lizard"><code>lizard</code></a></p>
-<p>Runs <code>lizard --csv</code> over changed source files (<code>.py</code>, <code>.js</code>, <code>.ts</code>, <code>.java</code>, <code>.go</code>, and others) and computes the average cyclomatic complexity number (CCN) across all analysed functions.</p>
-<table>
-<thead>
-<tr>
-<th>Average CCN</th>
-<th>Score</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>≤ 5</td>
-<td>0 – 30 (linear)</td>
-</tr>
-<tr>
-<td>6 – 10</td>
-<td>30 – 70 (linear)</td>
-</tr>
-<tr>
-<td>&gt; 10</td>
-<td>70 – 100 (capped at 100)</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="admonition-title">Tool availability</p>
-<p><code>lizard</code> must be installed in the runner before this step runs:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install lizard</span>
-</code></pre></div>
-If <code>lizard</code> is not found, this signal scores <code>0</code>.</p>
-</div>
-<hr />
-<h2 id="test-coverage-gap">Test coverage gap</h2>
-<p><strong>Default weight: 15</strong> | Source: <code>lcov.info</code> or <code>coverage.xml</code></p>
-<p>Reads the coverage report generated by your test suite and computes <code>1 − line_coverage_rate</code>. High coverage means low risk.</p>
-<table>
-<thead>
-<tr>
-<th>Line coverage</th>
-<th>Score</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>100%</td>
-<td>0</td>
-</tr>
-<tr>
-<td>80%</td>
-<td>20</td>
-</tr>
-<tr>
-<td>60%</td>
-<td>40</td>
-</tr>
-<tr>
-<td>40%</td>
-<td>60</td>
-</tr>
-<tr>
-<td>20%</td>
-<td>80</td>
-</tr>
-<tr>
-<td>0%</td>
-<td>100</td>
-</tr>
-</tbody>
-</table>
-<p>The action looks for reports at these locations (in order):</p>
+<h2 id="slack">Slack</h2>
+<p>Posts a Block Kit message to a channel when the score meets or exceeds <code>minScore</code>.</p>
+<h3 id="setup">Setup</h3>
 <ol>
-<li><code>&lt;workspace&gt;/lcov.info</code></li>
-<li><code>&lt;workspace&gt;/coverage.xml</code></li>
+<li>Create a Slack Incoming Webhook in your Slack app settings and copy the URL.</li>
+<li>Add it as a GitHub Actions secret (e.g., <code>SLACK_WEBHOOK_URL</code>).</li>
+<li>Configure the integration in <code>.github/pr-risk-scorer.yml</code>:</li>
 </ol>
-<p>If neither file exists, the signal defaults to <strong>50</strong> (neutral) and logs a notice.</p>
-<h3 id="generating-a-coverage-report">Generating a coverage report</h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Python (pytest)</label><label for="__tabbed_1_2">Node.js (Jest)</label><label for="__tabbed_1_3">Go</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pytest<span class="w"> </span>--cov<span class="o">=</span>src<span class="w"> </span>--cov-report<span class="o">=</span>xml<span class="w">   </span><span class="c1"># → coverage.xml</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>pytest<span class="w"> </span>--cov<span class="o">=</span>src<span class="w"> </span>--cov-report<span class="o">=</span>lcov<span class="w">  </span><span class="c1"># → lcov.info</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">notifications</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">slack</span><span class="p">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">webhookSecret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SLACK_WEBHOOK_URL</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">minScore</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">70</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#eng-alerts&quot;</span><span class="w">   </span><span class="c1"># optional — overrides the webhook default</span>
 </code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>jest<span class="w"> </span>--coverage<span class="w"> </span>--coverageReporters<span class="o">=</span>lcov<span class="w">  </span><span class="c1"># → coverage/lcov.info</span>
+<h3 id="message-format">Message format</h3>
+<p>The message shows the PR title, score, risk band, and the top 3 signal details:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>🔶 High Risk PR: 78/100
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>*Fix user auth flow*
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Risk Score: *78/100* — HIGH
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>complexity: avg CCN 14.2 · dead code: 8 unused exports · migrations: 2 files found
 </code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>./...<span class="w"> </span>-coverprofile<span class="o">=</span>lcov.info
-</code></pre></div>
-</div>
-</div>
-</div>
-<hr />
-<h2 id="migration-files">Migration files</h2>
-<p><strong>Default weight: 10</strong> | Source: filesystem glob</p>
-<p>Scans the workspace for database migration files matching:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>**/migrations/**/*.{sql,py,rb,ts}
-</code></pre></div>
-<p>Node modules, <code>.git</code>, and <code>dist/</code> are excluded.</p>
+<h3 id="configuration-reference">Configuration reference</h3>
 <table>
 <thead>
 <tr>
-<th>Migration files found</th>
-<th>Score</th>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0</td>
-<td>0</td>
+<td><code>webhookSecret</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Secret name holding the Incoming Webhook URL</td>
 </tr>
 <tr>
-<td>1</td>
-<td>50</td>
+<td><code>minScore</code></td>
+<td>integer 0–100</td>
+<td>yes</td>
+<td>Score threshold that triggers the message</td>
 </tr>
 <tr>
-<td>2</td>
-<td>65</td>
-</tr>
-<tr>
-<td>3</td>
-<td>80</td>
-</tr>
-<tr>
-<td>4+</td>
-<td>85 – 100 (capped at 100)</td>
+<td><code>channel</code></td>
+<td>string</td>
+<td>no</td>
+<td>Override the default channel (e.g., <code>#alerts</code>)</td>
 </tr>
 </tbody>
 </table>
-<p>Any migration file signals schema changes, which carry deployment and rollback risk regardless of the lines changed.</p>
 <hr />
-<h2 id="dead-code">Dead code</h2>
-<p><strong>Default weight: 10</strong> | Source: <code>ts-prune</code> or <code>vulture</code></p>
-<p>Counts unused exports (TypeScript) or dead symbols (Python) in the workspace. The action tries <code>ts-prune</code> first, then falls back to <code>vulture</code>.</p>
-<table>
-<thead>
-<tr>
-<th>Unused symbols</th>
-<th>Score</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1 – 5</td>
-<td>10 – 50 (×10 per symbol)</td>
-</tr>
-<tr>
-<td>6 – 20</td>
-<td>50 – 80 (+2 per symbol)</td>
-</tr>
-<tr>
-<td>21+</td>
-<td>80 – 100 (capped at 100)</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="admonition-title">Tool availability</p>
-<p>Install the relevant tool before this step:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># TypeScript</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm install -g ts-prune</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Python</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install vulture</span>
-</code></pre></div>
-<p>If neither tool is found, this signal scores <code>0</code>.</p>
-</div>
-<hr />
-<h2 id="secret-leak">Secret leak</h2>
-<p><strong>Default weight: 15</strong> | Source: <a href="https://github.com/gitleaks/gitleaks"><code>gitleaks</code></a></p>
-<p>Scans the PR diff for hardcoded secrets, API keys, tokens, and other credentials using <code>gitleaks</code>. When a secret is detected the signal immediately returns the maximum per-signal score and the action sets an override band of <strong>CRITICAL</strong> — regardless of the weighted total.</p>
-<table>
-<thead>
-<tr>
-<th>Secrets found</th>
-<th>Score</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>≥ 1</td>
-<td>15 (full weight) + CRITICAL override</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition warning">
-<p class="admonition-title">CRITICAL override</p>
-<p>A detected secret sets the overall PR band to <strong>CRITICAL</strong> and blocks merge regardless of the <code>block_merge</code> threshold. The Slack/Jira/Linear notifications are also triggered at any <code>minScore</code>.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Tool availability</p>
-<p><code>gitleaks</code> must be available on the runner <code>PATH</code>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gitleaks/gitleaks-action@v2</span>
-</code></pre></div>
-If <code>gitleaks</code> is not found, this signal scores <code>0</code> and logs a warning.</p>
-</div>
-<hr />
-<h2 id="bundle-size-delta">Bundle size delta</h2>
-<p><strong>Default weight: 5</strong> | Source: <a href="https://github.com/ai/size-limit"><code>size-limit</code></a></p>
-<p>Runs <code>npx size-limit --json</code> and checks whether any configured size budgets are exceeded. Only active when a <code>size-limit</code> key is present in <code>package.json</code>.</p>
-<table>
-<thead>
-<tr>
-<th>Budget violations</th>
-<th>Score</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>2</td>
-</tr>
-<tr>
-<td>2</td>
-<td>4</td>
-</tr>
-<tr>
-<td>3+</td>
-<td>5 (capped)</td>
-</tr>
-</tbody>
-</table>
-<p>If no <code>size-limit</code> configuration is found, the signal returns <code>0</code> and is skipped silently.</p>
-<div class="admonition note">
-<p class="admonition-title">Setup</p>
-<p>Add a budget to <code>package.json</code>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">&quot;size-limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dist/index.js&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;50 KB&quot;</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">]</span>
-</code></pre></div></p>
-</div>
-<hr />
-<h2 id="api-breaking-changes">API breaking changes</h2>
-<p><strong>Default weight: 5</strong> | Source: <code>openapi-diff</code> / TypeScript compiler</p>
-<p>Detects backward-incompatible changes in two ways:</p>
+<h2 id="jira">Jira</h2>
+<p>Creates a Jira issue (type: <strong>Bug</strong>) when the score meets or exceeds <code>minScore</code>. The issue includes a bullet list of all signal details and a link back to the PR.</p>
+<p>Priority is set to <strong>High</strong> when the score is ≥ 80, otherwise <strong>Medium</strong>.</p>
+<h3 id="setup_1">Setup</h3>
 <ol>
-<li><strong>OpenAPI spec diff</strong> — if an <code>openapi.yaml</code>, <code>openapi.yml</code>, or <code>openapi.json</code> file exists (including under <code>docs/</code>), runs <code>openapi-diff</code> to compare the base branch version against the PR head.</li>
-<li><strong>TypeScript declaration errors</strong> — if changed <code>.d.ts</code> files are present and a <code>tsconfig.json</code> exists, runs <code>tsc --noEmit</code> on those files and counts type errors.</li>
+<li>Generate a Jira API token at <a href="https://id.atlassian.com/manage-profile/security/api-tokens">id.atlassian.com/manage-profile/security/api-tokens</a>.</li>
+<li>Add two GitHub Actions secrets:</li>
+<li>Your API token (e.g., <code>JIRA_API_TOKEN</code>)</li>
+<li>The email address associated with the token (e.g., <code>JIRA_EMAIL</code>)</li>
+<li>Configure the integration:</li>
 </ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">notifications</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">jira</span><span class="p">:</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">baseUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://your-org.atlassian.net</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">projectKey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ENG</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">tokenSecret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JIRA_API_TOKEN</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">emailSecret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JIRA_EMAIL</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">minScore</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">70</span>
+</code></pre></div>
+<h3 id="configuration-reference_1">Configuration reference</h3>
 <table>
 <thead>
 <tr>
-<th>Breaking changes</th>
-<th>Score</th>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0</td>
-<td>0</td>
+<td><code>baseUrl</code></td>
+<td>string (URL)</td>
+<td>yes</td>
+<td>Jira Cloud base URL</td>
 </tr>
 <tr>
-<td>1</td>
-<td>3</td>
+<td><code>projectKey</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Project key to create issues in</td>
 </tr>
 <tr>
-<td>2</td>
-<td>5 (capped)</td>
+<td><code>tokenSecret</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Secret name holding the Jira API token</td>
+</tr>
+<tr>
+<td><code>emailSecret</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Secret name holding the associated email</td>
+</tr>
+<tr>
+<td><code>minScore</code></td>
+<td>integer 0–100</td>
+<td>yes</td>
+<td>Score threshold that triggers issue creation</td>
 </tr>
 </tbody>
 </table>
-<p>If neither an OpenAPI spec nor <code>.d.ts</code> files are found, the signal returns <code>0</code> and is skipped silently.</p>
-<div class="admonition note">
-<p class="admonition-title">Tool availability</p>
-<p>Install <code>openapi-diff</code> if you use OpenAPI specs:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm install -g openapi-diff</span>
-</code></pre></div></p>
-</div>
 <hr />
-<h2 id="score-aggregation">Score aggregation</h2>
-<p>The final score is a normalized weighted sum:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>total = round( Σ(signal_score × weight) / Σ(weight) )
+<h2 id="linear">Linear</h2>
+<p>Applies a label to the Linear issue linked to the PR's branch when the score meets or exceeds <code>minScore</code>. The action looks up the issue by matching the branch name.</p>
+<h3 id="setup_2">Setup</h3>
+<ol>
+<li>Create a Linear API key at <strong>Settings → API → Personal API keys</strong>.</li>
+<li>Create the label you want applied (e.g., <code>high-risk</code>) in the target team.</li>
+<li>Add the API key as a GitHub Actions secret (e.g., <code>LINEAR_API_TOKEN</code>).</li>
+<li>Find your team ID in Linear under <strong>Settings → Members → Team ID</strong>, or via the Linear API.</li>
+<li>Configure the integration:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">notifications</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">linear</span><span class="p">:</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">tokenSecret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LINEAR_API_TOKEN</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">teamId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-team-id</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high-risk</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nt">minScore</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">70</span>
 </code></pre></div>
-<p>Weights are integers (default sum to 100). They are normalized at runtime, so custom configs that don't sum to exactly 100 still produce a valid 0–100 result — but the config validator enforces that they do sum to 100.</p>
-<p>The result is clamped to <code>[0, 100]</code>. A <strong>CRITICAL</strong> override from the secret leak signal bypasses this calculation and immediately sets the band to CRITICAL.</p>
+<div class="admonition note">
+<p class="admonition-title">Branch matching</p>
+<p>Linear matches issues to branches by name. If no issue is linked to the PR's branch, the action logs a warning and skips silently.</p>
+</div>
+<h3 id="configuration-reference_2">Configuration reference</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tokenSecret</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Secret name holding the Linear API key</td>
+</tr>
+<tr>
+<td><code>teamId</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Linear team ID</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Label name to apply to the issue</td>
+</tr>
+<tr>
+<td><code>minScore</code></td>
+<td>integer 0–100</td>
+<td>yes</td>
+<td>Score threshold that triggers the label</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="combining-integrations">Combining integrations</h2>
+<p>All three integrations can be active simultaneously with different thresholds:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">notifications</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">slack</span><span class="p">:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">webhookSecret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SLACK_WEBHOOK_URL</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">minScore</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span><span class="w">          </span><span class="c1"># warn on MEDIUM+</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">jira</span><span class="p">:</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">baseUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://your-org.atlassian.net</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">projectKey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ENG</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nt">tokenSecret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JIRA_API_TOKEN</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nt">emailSecret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JIRA_EMAIL</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="nt">minScore</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">70</span><span class="w">          </span><span class="c1"># create ticket on HIGH+</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">  </span><span class="nt">linear</span><span class="p">:</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nt">tokenSecret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LINEAR_API_TOKEN</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="nt">teamId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">abc123</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">needs-review</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="nt">minScore</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">70</span>
+</code></pre></div>
+<hr />
+<h2 id="secret-leak-escalation">Secret leak escalation</h2>
+<p>When the secret leak signal fires, all configured notifications trigger regardless of their <code>minScore</code> setting — a detected credential always warrants immediate attention.</p>
+<hr />
+<p><strong>Next step:</strong> <a href="../ai-suggestions/">AI Suggestions →</a></p>
 
 
 
@@ -1314,7 +1263,7 @@ If <code>gitleaks</code> is not found, this signal scores <code>0</code> and log
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../configuration/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Configuration">
+          <a href="../signals/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Signals">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1324,20 +1273,20 @@ If <code>gitleaks</code> is not found, this signal scores <code>0</code> and log
                 Previous
               </span>
               <div class="md-ellipsis">
-                Configuration
+                Signals
               </div>
             </div>
           </a>
         
         
           
-          <a href="../notifications/" class="md-footer__link md-footer__link--next" aria-label="Next: Notifications">
+          <a href="../ai-suggestions/" class="md-footer__link md-footer__link--next" aria-label="Next: AI Suggestions">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Notifications
+                AI Suggestions
               </div>
             </div>
             <div class="md-footer__button md-icon">
