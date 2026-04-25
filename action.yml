@@ -3,7 +3,7 @@ description: 'Scores pull requests by structural risk (files changed, complexity
 author: 'FasterApiWeb'
 
 branding:
-  icon: 'alert-triangle'
+  icon: 'shield'
   color: 'orange'
 
 inputs:
@@ -11,9 +11,9 @@ inputs:
     description: 'GitHub token for reading PR data'
     required: true
   config-path:
-    description: 'Path (relative to workspace) to JSON config file'
+    description: 'Path to pr-risk-scorer.yml config'
     required: false
-    default: '.github/pr-risk-scorer.json'
+    default: '.github/pr-risk-scorer.yml'
 
 outputs:
   risk-score:

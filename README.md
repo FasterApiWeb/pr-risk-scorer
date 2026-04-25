@@ -17,11 +17,9 @@ Add this step to any workflow that runs on `pull_request` events:
 
 ```yaml
 - name: Score PR Risk
-  uses: FasterApiWeb/pr-risk-scorer@v1
+  uses: FasterApiWeb/pr-risk-scorer@v2
   with:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
-    threshold: 70         # fail if score > 70
-    fail_on_high: true
+    github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ---
@@ -30,16 +28,17 @@ Add this step to any workflow that runs on `pull_request` events:
 
 | Input | Required | Default | Description |
 |-------|----------|---------|-------------|
-| `github_token` | Yes | — | Token used to post the PR comment (`secrets.GITHUB_TOKEN` works) |
-| `threshold` | No | `70` | Scores above this value are flagged as high risk |
-| `fail_on_high` | No | `true` | Exit with a non-zero code when score exceeds threshold |
+| `github-token` | Yes | — | Token used to post the PR comment (`secrets.GITHUB_TOKEN` works) |
+| `config-path` | No | `.github/pr-risk-scorer.yml` | Path to `pr-risk-scorer.yml` config file |
+
+> **Secrets** (`SLACK_WEBHOOK_URL`, `JIRA_API_TOKEN`, `JIRA_EMAIL`, `LINEAR_API_TOKEN`, `ANTHROPIC_API_KEY`) are passed as `env:` vars on the step, not as `inputs:`. See the full workflow example below.
 
 ## Outputs
 
 | Output | Description |
 |--------|-------------|
-| `risk_score` | Numeric score `0–100` |
-| `risk_level` | `LOW`, `MEDIUM`, or `HIGH` |
+| `risk-score` | Numeric score `0–100` |
+| `risk-label` | `LOW`, `MEDIUM`, or `HIGH` |
 
 ---
 
@@ -87,6 +86,8 @@ The total score is a **weighted average** of five analyzers (0 = no risk, 100 = 
 
 ## Full Example Workflow
 
+Full workflow with all integrations wired:
+
 ```yaml
 name: PR Quality Gate
 
@@ -112,12 +113,36 @@ jobs:
           pytest --cov=src --cov-report=xml
 
       - name: Score PR Risk
-        uses: FasterApiWeb/pr-risk-scorer@v1
+        uses: FasterApiWeb/pr-risk-scorer@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          threshold: 70
-          fail_on_high: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          config-path: .github/pr-risk-scorer.yml
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          LINEAR_API_TOKEN: ${{ secrets.LINEAR_API_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 ```
+
+### Minimal config (Slack only)
+
+`.github/pr-risk-scorer.yml`:
+
+```yaml
+slack:
+  enabled: true
+  # SLACK_WEBHOOK_URL is read from the environment
+  notify_on: [high, medium]   # omit to notify on all scores
+```
+
+### Score Bands
+
+| Score | Label | Meaning |
+|-------|-------|---------|
+| 0 – 39 | 🟢 LOW | Routine change, low review overhead |
+| 40 – 70 | 🟡 MEDIUM | Notable change, standard review recommended |
+| 71 – 100 | 🔴 HIGH | Large or complex change, careful review required |
 
 ---
 
