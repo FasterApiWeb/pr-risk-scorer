@@ -37,6 +37,8 @@ nav:
   - Getting Started: getting-started.md
   - Configuration: configuration.md
   - Signals: signals.md
+  - Notifications: notifications.md
+  - AI Suggestions: ai-suggestions.md
   - Using as a Skill: using-as-skill.md
   - Contributing: contributing.md
 
